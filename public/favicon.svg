@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3366FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1B3A5C;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Gear-S icon -->
+  <g transform="translate(10,10)">
+    <circle cx="40" cy="40" r="35" fill="none" stroke="url(#logoGrad)" stroke-width="4"/>
+    <!-- Gear teeth -->
+    <rect x="35" y="0" width="10" height="12" rx="2" fill="url(#logoGrad)"/>
+    <rect x="35" y="68" width="10" height="12" rx="2" fill="url(#logoGrad)"/>
+    <rect x="0" y="35" width="12" height="10" rx="2" fill="url(#logoGrad)"/>
+    <rect x="68" y="35" width="12" height="10" rx="2" fill="url(#logoGrad)"/>
+    <rect x="10" y="10" width="10" height="10" rx="2" fill="url(#logoGrad)" transform="rotate(45 15 15)"/>
+    <rect x="60" y="10" width="10" height="10" rx="2" fill="url(#logoGrad)" transform="rotate(45 65 15)"/>
+    <rect x="10" y="60" width="10" height="10" rx="2" fill="url(#logoGrad)" transform="rotate(45 15 65)"/>
+    <rect x="60" y="60" width="10" height="10" rx="2" fill="url(#logoGrad)" transform="rotate(45 65 65)"/>
+    <!-- S letter -->
+    <text x="40" y="52" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="900" font-size="42" fill="url(#logoGrad)">S</text>
+  </g>
+  <!-- SAYAKA text -->
+  <text x="110" y="62" font-family="Outfit, sans-serif" font-weight="800" font-size="48" letter-spacing="6" fill="#FFFFFF">SAYAKA</text>
+  <text x="112" y="80" font-family="Inter, sans-serif" font-weight="400" font-size="12" letter-spacing="4" fill="#B0B0B0">INDUSTRIAL CUTTING SOLUTIONS</text>
+</svg>
