@@ -1,18 +1,101 @@
-import { motion } from 'framer-motion';
-import { Disc3, CircleDot, Ruler, Wrench, Cog, Scissors, CircleDashed, Hexagon } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Disc3, CircleDot, Ruler, Wrench, Cog, Scissors, CircleDashed, Hexagon, Settings, Layers, Package, Navigation, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const products = [
-  { icon: Scissors, title: 'Cuchillos de Corte', desc: 'Carburo de tungsteno para corrugadoras Fosber, Marquip, Agnati, BHS, MHI y más.', image: '/product-knives.png' },
-  { icon: Disc3, title: 'Cuchillos Slitter', desc: 'Para distintas corrugadoras, fabricados en carburo de tungsteno de alta precisión.', image: '/product-slitter.png' },
-  { icon: CircleDot, title: 'Cuchillos Cut-Off', desc: 'Compatibles con variadas marcas de máquinas cortadoras industriales.', image: '/product-cutoff.png' },
-  { icon: Ruler, title: 'Cuchillos Ranuradoras', desc: 'Ranurador inferior, dentado rectificado, machos con y sin dentado.', image: '/product-ranuradora.png' },
-  { icon: CircleDashed, title: 'Piedras de Amolar', desc: 'Diamante y CBN: tipos 6A2, 12A2, Double Side. Para líneas Perini, PCMC, FUTURA.', image: '/product-wheels.png' },
-  { icon: Hexagon, title: 'Cuchillas CBN', desc: 'Para industria de conversión de papel tisú de alta velocidad.', image: '/product-cbn.png' },
-  { icon: Cog, title: 'Hojas de Sierra TC', desc: 'Carburo de tungsteno para corte en acero inoxidable. Medidas 610mm y 710mm.', image: '/product-saw.png' },
-  { icon: Wrench, title: 'Repuestos Varios', desc: 'Sufrideras, ejes con hilo, patines, pernos matriceros, polines, refiles y más.' },
+  { icon: Scissors,    title: 'Cuchillas',                    desc: 'Cuchillas de corte industrial de alta precisión en carburo de tungsteno.',          image: '/real-cuchillas.jpg' },
+  { icon: Disc3,       title: 'Cuchillos Slitter',            desc: 'Para distintas corrugadoras, fabricados en carburo de tungsteno de alta precisión.', image: '/real-slitter.jpg' },
+  { icon: CircleDot,   title: 'Cuchillos Cut-Off',            desc: 'Compatibles con variadas marcas de máquinas cortadoras industriales.',               image: '/real-cutoff.jpg' },
+  { icon: Cog,         title: 'Cuchillos Carburo Tungsteno',  desc: 'Alta dureza y resistencia al desgaste para procesos industriales exigentes.',        image: '/real-carburo.jpg' },
+  { icon: Ruler,       title: 'Cuchillos Gualeteros',         desc: 'Diseñados para líneas de producción de alta velocidad con alta durabilidad.',        image: '/real-gualeteros.jpg' },
+  { icon: Hexagon,     title: 'Cuchillos Machos',             desc: 'Ranurador inferior, dentado rectificado, machos con y sin dentado.',                  image: '/real-machos.jpg' },
+  { icon: Navigation,  title: 'Dedos Guías',                  desc: 'Guías de precisión para el control del material en líneas industriales.',             image: '/real-dedos.jpg' },
+  { icon: Settings,    title: 'Engranajes',                   desc: 'Engranajes industriales de alta precisión para transmisión de potencia.',             image: '/real-engranajes.jpg' },
+  { icon: CircleDashed,title: 'Guía Bota Recorte',            desc: 'Sistema de guía para el manejo de recortes en líneas de producción.',                 image: '/real-guia-bota.jpg' },
+  { icon: Wrench,      title: 'Pernos e Insertos para Matriz',desc: 'Componentes de sujeción de alta resistencia para matrices industriales.',             image: '/real-pernos.jpg' },
+  { icon: CircleDot,   title: 'Piedras de Afilar',            desc: 'Diamante y CBN: tipos 6A2, 12A2, Double Side. Para líneas Perini, PCMC, FUTURA.',    image: '/real-piedras.jpg' },
+  { icon: Layers,      title: 'Separadores y Hembras',        desc: 'Espaciadores y hembras para el montaje preciso de líneas de corte.',                  image: '/real-separadores.jpg' },
+  { icon: Package,     title: 'Otras Piezas',                 desc: 'Sufrideras, ejes con hilo, patines, polines, refiles y más componentes.',             image: '/real-otras.jpg' },
 ];
 
+const galleryImages = [
+  { src: '/gallery-1.jpg',  label: 'Cuchillos Slitter' },
+  { src: '/gallery-2.jpg',  label: 'Engranajes' },
+  { src: '/gallery-3.jpg',  label: 'Cuchillos Machos' },
+  { src: '/gallery-4.jpg',  label: 'Cuchillos Gualeteros' },
+  { src: '/gallery-5.jpg',  label: 'Separadores y Hembras' },
+  { src: '/gallery-6.jpg',  label: 'Piedras de Afilar' },
+  { src: '/gallery-7.jpg',  label: 'Engranajes' },
+  { src: '/gallery-8.jpg',  label: 'Cuchillos Slitter' },
+  { src: '/gallery-9.jpg',  label: 'Carburo Tungsteno' },
+  { src: '/gallery-10.jpg', label: 'Cuchillos Machos' },
+  { src: '/gallery-11.jpg', label: 'Guía Bota Recorte' },
+  { src: '/gallery-12.jpg', label: 'Cuchillas' },
+];
+
+function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 text-white/70 hover:text-white transition-colors z-10"
+        >
+          <X size={32} />
+        </button>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          className="absolute left-4 text-white/70 hover:text-white transition-colors z-10 p-2"
+        >
+          <ChevronLeft size={40} />
+        </button>
+
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className="relative max-w-4xl max-h-[85vh] mx-16"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img
+            src={images[index].src}
+            alt={images[index].label}
+            className="max-w-full max-h-[80vh] object-contain rounded-xl"
+          />
+          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent rounded-b-xl py-3 px-4">
+            <p className="text-white font-semibold text-sm">{images[index].label}</p>
+            <p className="text-gray-400 text-xs">{index + 1} / {images.length}</p>
+          </div>
+        </motion.div>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); onNext(); }}
+          className="absolute right-4 text-white/70 hover:text-white transition-colors z-10 p-2"
+        >
+          <ChevronRight size={40} />
+        </button>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function Products() {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const openLightbox = (i) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevImage = () => setLightboxIndex((i) => (i - 1 + galleryImages.length) % galleryImages.length);
+  const nextImage = () => setLightboxIndex((i) => (i + 1) % galleryImages.length);
+
   return (
     <section id="productos" className="relative py-24 lg:py-32">
       {/* BG glow */}
@@ -36,7 +119,7 @@ export default function Products() {
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, i) => (
             <motion.div
@@ -44,10 +127,10 @@ export default function Products() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ delay: i * 0.08, duration: 0.6 }}
+              transition={{ delay: i * 0.06, duration: 0.6 }}
               className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.06] hover:border-[#3366FF]/30 transition-all duration-500 hover:shadow-[0_0_40px_rgba(51,102,255,0.1)]"
             >
-              {/* Image or gradient top */}
+              {/* Image */}
               <div className="relative h-44 overflow-hidden">
                 {p.image ? (
                   <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -70,12 +153,65 @@ export default function Products() {
                 <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
               </div>
 
-              {/* Hover shine */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.02] to-transparent" />
             </motion.div>
           ))}
         </div>
+
+        {/* Photo Gallery */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8 }}
+          className="mt-24"
+        >
+          <div className="text-center mb-10">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Galería</span>
+            <h3 className="font-heading font-black text-2xl sm:text-3xl mt-3 text-white">
+              Nuestro <span className="text-gradient-blue">Trabajo Real</span>
+            </h3>
+            <p className="mt-3 text-gray-400 max-w-xl mx-auto">
+              Fotos reales de nuestros productos fabricados para clientes en Chile y el mundo.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {galleryImages.map((img, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: i * 0.05, duration: 0.5 }}
+                onClick={() => openLightbox(i)}
+                className="group relative aspect-square overflow-hidden rounded-xl border border-white/[0.06] hover:border-[#3366FF]/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(51,102,255,0.15)]"
+              >
+                <img
+                  src={img.src}
+                  alt={img.label}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+                <div className="absolute bottom-0 inset-x-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent p-3">
+                  <p className="text-white text-xs font-semibold">{img.label}</p>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
       </div>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={galleryImages}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={prevImage}
+          onNext={nextImage}
+        />
+      )}
     </section>
   );
 }

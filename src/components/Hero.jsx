@@ -62,7 +62,7 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0f18] pt-20">
       {/* Right Side Visual Background */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
-        <img src="/hero-bg.png" alt="Industrial blades" className="w-full h-full object-cover object-right opacity-40 mix-blend-screen" />
+        <img src="/real-hero.jpg" alt="Industrial blades" className="w-full h-full object-cover object-right opacity-40 mix-blend-screen" />
         {/* Fades to make image blend into solid color */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f18] via-[#0a0f18]/80 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-[#0a0f18]" />
@@ -111,8 +111,7 @@ export default function Hero() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed border-l-2 border-[#3366FF]/50 pl-5"
             >
-              Fabricantes y exportadores de repuestos industriales de corte y rectificado
-              para las líneas de cartón corrugado, papel tisú y procesamiento de metales.
+              Fabricamos, importamos y exportamos repuestos para la industria del cartón corrugado, papel tsú, entre otros.
               <span className="text-white font-medium block mt-3">Rendimiento garantizado, impulsado por calidad superior.</span>
             </motion.p>
 
