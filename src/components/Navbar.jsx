@@ -12,6 +12,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   const links = [
     { label: 'Inicio', href: '#hero' },
     { label: 'Productos', href: '#productos' },
@@ -93,23 +100,23 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#12121A]/98 backdrop-blur-xl border-t border-white/5 overflow-hidden"
+            className="fixed inset-x-0 top-16 bottom-0 z-50 lg:hidden bg-[#12121A]/98 backdrop-blur-xl border-t border-white/5 overflow-auto"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="px-4 py-6 space-y-2 min-h-[calc(100vh-4rem)]">
               {links.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all text-base"
+                  className="block px-4 py-4 text-gray-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all text-base"
                 >
                   {l.label}
                 </a>
               ))}
-              <div className="pt-3 pb-1 flex flex-col gap-2">
+              <div className="pt-3 pb-1 flex flex-col gap-3">
                 <a
                   href="mailto:ventas@sayaka.cl"
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/10 text-gray-300 font-medium text-sm"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-white/10 text-gray-300 font-medium text-sm"
                 >
                   <Mail size={16} />
                   ventas@sayaka.cl
@@ -118,7 +125,7 @@ export default function Navbar() {
                   href="https://wa.me/56991765802"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-3.5 bg-gradient-to-r from-[#3366FF] to-[#1B3A5C] rounded-xl text-white font-semibold text-base"
+                  className="flex items-center justify-center gap-2 px-4 py-3.5 bg-gradient-to-r from-[#3366FF] to-[#1B3A5C] rounded-2xl text-white font-semibold text-base"
                 >
                   <Phone size={18} />
                   Cotizar por WhatsApp
