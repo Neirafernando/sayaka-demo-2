@@ -32,16 +32,18 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <div className="w-full max-w-[1536px] mx-auto px-6 md:px-12 xl:px-24">
+      <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-12 xl:px-24">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3366FF] to-[#1B3A5C] flex items-center justify-center font-heading font-black text-white text-xl group-hover:shadow-[0_0_20px_rgba(51,102,255,0.4)] transition-shadow duration-300">
-              S
-            </div>
-            <span className="font-heading font-bold text-lg tracking-[0.15em] text-white hidden sm:block">
-              SAYAKA
-            </span>
+          <a href="#hero" className="flex items-center group">
+            <img
+              src="/logo.png"
+              alt="Sayaka SpA"
+              className="h-9 sm:h-11 w-auto"
+              style={{
+                filter: 'brightness(0) saturate(100%) invert(1)',
+              }}
+            />
           </a>
 
           {/* Desktop Links */}
@@ -76,7 +78,8 @@ export default function Navbar() {
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            className="lg:hidden p-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            aria-label="Menú"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -90,7 +93,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#12121A]/95 backdrop-blur-xl border-t border-white/5 overflow-hidden"
+            className="lg:hidden bg-[#12121A]/98 backdrop-blur-xl border-t border-white/5 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-1">
               {links.map((l) => (
@@ -98,19 +101,29 @@ export default function Navbar() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                  className="block px-4 py-3.5 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all text-base"
                 >
                   {l.label}
                 </a>
               ))}
-              <a
-                href="https://wa.me/56991765802"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block mt-3 text-center px-4 py-3 bg-gradient-to-r from-[#3366FF] to-[#1B3A5C] rounded-lg text-white font-semibold"
-              >
-                Cotizar por WhatsApp
-              </a>
+              <div className="pt-3 pb-1 flex flex-col gap-2">
+                <a
+                  href="mailto:ventas@sayaka.cl"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/10 text-gray-300 font-medium text-sm"
+                >
+                  <Mail size={16} />
+                  ventas@sayaka.cl
+                </a>
+                <a
+                  href="https://wa.me/56991765802"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-4 py-3.5 bg-gradient-to-r from-[#3366FF] to-[#1B3A5C] rounded-xl text-white font-semibold text-base"
+                >
+                  <Phone size={18} />
+                  Cotizar por WhatsApp
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

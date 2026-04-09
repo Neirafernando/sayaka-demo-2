@@ -12,7 +12,9 @@
       "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Engranajes/20211104_143501.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-2.jpg')",
       "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillos Machos/20231207_133420.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-3.jpg')",
       "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillos gualeteros/20240105_125122.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-4.jpg')",
-      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Separadores y Hembras/20240509_222133.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-5.jpg')"
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Separadores y Hembras/20240509_222133.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-5.jpg')",
+      "Bash(npm install:*)",
+      "Bash(node -e \"require\\('react-simple-maps'\\); console.log\\('ok'\\)\")"
     ]
   }
 }

@@ -1,107 +1,145 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin } from 'lucide-react';
+import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from 'react-simple-maps';
+
+const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
 const countries = [
-  { name: 'EE.UU.', flag: '🇺🇸', x: '18%', y: '35%' },
-  { name: 'Chile', flag: '🇨🇱', x: '25%', y: '75%' },
-  { name: 'Reino Unido', flag: '🇬🇧', x: '47%', y: '25%' },
-  { name: 'Alemania', flag: '🇩🇪', x: '50%', y: '28%' },
-  { name: 'Rumania', flag: '🇷🇴', x: '54%', y: '30%' },
-  { name: 'Turquía', flag: '🇹🇷', x: '57%', y: '35%' },
-  { name: 'Arabia Saudita', flag: '🇸🇦', x: '60%', y: '42%' },
-  { name: 'Kenia', flag: '🇰🇪', x: '58%', y: '58%' },
-  { name: 'Nigeria', flag: '🇳🇬', x: '48%', y: '54%' },
-  { name: 'Sudáfrica', flag: '🇿🇦', x: '55%', y: '72%' },
-  { name: 'Tailandia', flag: '🇹🇭', x: '75%', y: '48%' },
-  { name: 'Malasia', flag: '🇲🇾', x: '77%', y: '54%' },
-  { name: 'Indonesia', flag: '🇮🇩', x: '79%', y: '58%' },
+  { name: 'EE.UU.',         flag: '🇺🇸', coordinates: [-98, 38] },
+  { name: 'Chile',          flag: '🇨🇱', coordinates: [-71, -33], isHQ: true },
+  { name: 'Reino Unido',    flag: '🇬🇧', coordinates: [-2, 54] },
+  { name: 'Alemania',       flag: '🇩🇪', coordinates: [10, 51] },
+  { name: 'Rumania',        flag: '🇷🇴', coordinates: [25, 46] },
+  { name: 'Turquía',        flag: '🇹🇷', coordinates: [35, 39] },
+  { name: 'Arabia Saudita', flag: '🇸🇦', coordinates: [45, 24] },
+  { name: 'Kenia',          flag: '🇰🇪', coordinates: [37, -1] },
+  { name: 'Nigeria',        flag: '🇳🇬', coordinates: [8, 10] },
+  { name: 'Sudáfrica',      flag: '🇿🇦', coordinates: [25, -29] },
+  { name: 'Tailandia',      flag: '🇹🇭', coordinates: [101, 15] },
+  { name: 'Malasia',        flag: '🇲🇾', coordinates: [110, 4] },
+  { name: 'Indonesia',      flag: '🇮🇩', coordinates: [120, -3] },
 ];
 
 export default function GlobalReach() {
+  const [tooltip, setTooltip] = useState(null);
+
   return (
-    <section id="global" className="relative py-24 lg:py-32 overflow-hidden">
+    <section id="global" className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#12121A] via-[#0D1F33]/40 to-[#12121A]" />
 
-      <div className="relative w-full max-w-[1536px] mx-auto px-6 md:px-12 xl:px-24">
+      <div className="relative w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Presencia Internacional</span>
           <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl mt-4 text-white">
             Alcance <span className="text-gradient-blue">Global</span>
           </h2>
-          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             Desde Chile al mundo. Exportamos repuestos industriales de precisión a más de 12 países en 5 continentes.
           </p>
         </motion.div>
 
-        {/* Map visual */}
+        {/* Map */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1 }}
-          className="relative mx-auto max-w-5xl aspect-[2/1] rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden"
+          className="relative mx-auto max-w-5xl rounded-2xl sm:rounded-3xl border border-white/[0.06] bg-[#0D1826] overflow-hidden"
         >
-          {/* Grid pattern */}
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, rgba(51,102,255,0.08) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }} />
+          <ComposableMap
+            projection="geoNaturalEarth1"
+            projectionConfig={{ scale: 153, center: [15, 10] }}
+            style={{ width: '100%', height: 'auto' }}
+          >
+            <ZoomableGroup zoom={1} minZoom={1} maxZoom={1}>
+              <Geographies geography={geoUrl}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#1B2E45"
+                      stroke="#0D1826"
+                      strokeWidth={0.5}
+                      style={{
+                        default: { outline: 'none' },
+                        hover: { outline: 'none', fill: '#1E3550' },
+                        pressed: { outline: 'none' },
+                      }}
+                    />
+                  ))
+                }
+              </Geographies>
 
-          {/* Country dots */}
-          {countries.map((c, i) => (
-            <motion.div
-              key={c.name}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 + i * 0.1, duration: 0.5, type: 'spring' }}
-              className="absolute group cursor-pointer"
-              style={{ left: c.x, top: c.y, transform: 'translate(-50%, -50%)' }}
-            >
-              {/* Pulse ring */}
-              <div className="absolute inset-0 w-6 h-6 -m-1.5 rounded-full bg-[#3366FF]/20 animate-ping" style={{ animationDuration: `${2 + i * 0.3}s` }} />
-              {/* Dot */}
-              <div className="relative w-3 h-3 rounded-full bg-[#3366FF] shadow-[0_0_10px_rgba(51,102,255,0.5)]" />
-              {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-3 py-1.5 rounded-lg bg-[#1B3A5C] border border-[#3366FF]/30 text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-xl">
-                <span className="mr-1">{c.flag}</span>{c.name}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-[#1B3A5C] rotate-45 -mt-1 border-r border-b border-[#3366FF]/30" />
-              </div>
-            </motion.div>
-          ))}
+              {/* Connection lines from Chile */}
+              {countries
+                .filter((c) => !c.isHQ)
+                .map((c, i) => (
+                  <motion.line
+                    key={c.name}
+                    x1="0" y1="0" x2="0" y2="0"
+                    stroke="#3366FF"
+                    strokeWidth="0"
+                    opacity="0"
+                  />
+                ))}
 
-          {/* Connection lines from Chile */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
-            {countries.filter(c => c.name !== 'Chile').map((c, i) => (
-              <motion.line
-                key={i}
-                x1="25%" y1="75%" x2={c.x} y2={c.y}
-                stroke="#3366FF" strokeWidth="0.5" strokeDasharray="4 4"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 + i * 0.1, duration: 1 }}
-              />
-            ))}
-          </svg>
+              {/* Country markers */}
+              {countries.map((c, i) => (
+                <Marker key={c.name} coordinates={c.coordinates}>
+                  {c.isHQ ? (
+                    // HQ marker (Chile)
+                    <g>
+                      <circle r={7} fill="#3366FF" stroke="white" strokeWidth={2}
+                        style={{ filter: 'drop-shadow(0 0 6px rgba(51,102,255,0.8))' }} />
+                      <text
+                        textAnchor="middle"
+                        y={18}
+                        style={{ fontFamily: 'Inter,sans-serif', fontSize: 7, fontWeight: 700, fill: '#3366FF' }}
+                      >
+                        SAYAKA HQ
+                      </text>
+                    </g>
+                  ) : (
+                    // Regular country marker
+                    <g
+                      onMouseEnter={() => setTooltip(c.name)}
+                      onMouseLeave={() => setTooltip(null)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <circle r={0} fill="#3366FF" opacity={0.2}>
+                        <animate attributeName="r" from="3" to="10" dur={`${2 + i * 0.2}s`} repeatCount="indefinite" />
+                        <animate attributeName="opacity" from="0.4" to="0" dur={`${2 + i * 0.2}s`} repeatCount="indefinite" />
+                      </circle>
+                      <circle r={4} fill="#3366FF"
+                        style={{ filter: 'drop-shadow(0 0 4px rgba(51,102,255,0.6))' }} />
+                      {tooltip === c.name && (
+                        <g>
+                          <rect x={-30} y={-28} width={60} height={18} rx={4} fill="#1B3A5C" stroke="#3366FF" strokeWidth={0.5} />
+                          <text textAnchor="middle" y={-14} style={{ fontFamily: 'Inter,sans-serif', fontSize: 8, fill: 'white', fontWeight: 600 }}>
+                            {c.flag} {c.name}
+                          </text>
+                        </g>
+                      )}
+                    </g>
+                  )}
+                </Marker>
+              ))}
+            </ZoomableGroup>
+          </ComposableMap>
 
-          {/* Chile marker enhanced */}
-          <div className="absolute" style={{ left: '25%', top: '75%', transform: 'translate(-50%, -50%)' }}>
-            <div className="w-5 h-5 rounded-full bg-[#3366FF] border-2 border-white shadow-[0_0_20px_rgba(51,102,255,0.6)]" />
-            <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs font-bold text-[#3366FF] whitespace-nowrap flex items-center gap-1">
-              <MapPin size={12} /> SAYAKA HQ
-            </div>
-          </div>
+          {/* Gradient overlay bottom */}
+          <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#0D1826] to-transparent pointer-events-none" />
         </motion.div>
 
         {/* Country pills */}
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-2 sm:gap-3">
           {countries.map((c, i) => (
             <motion.div
               key={c.name}
@@ -109,9 +147,15 @@ export default function GlobalReach() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05, duration: 0.4 }}
-              className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-sm text-gray-300 hover:border-[#3366FF]/30 hover:text-white transition-all duration-300"
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm transition-all duration-300 ${
+                c.isHQ
+                  ? 'bg-[#3366FF]/10 border-[#3366FF]/40 text-[#6699FF] font-semibold'
+                  : 'bg-white/[0.03] border-white/[0.06] text-gray-300 hover:border-[#3366FF]/30 hover:text-white'
+              }`}
             >
-              <span className="mr-1.5">{c.flag}</span>{c.name}
+              <span className="mr-1.5">{c.flag}</span>
+              {c.name}
+              {c.isHQ && <span className="ml-1.5 text-[10px] text-[#3366FF]/70">HQ</span>}
             </motion.div>
           ))}
         </div>

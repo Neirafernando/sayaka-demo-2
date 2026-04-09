@@ -97,11 +97,11 @@ export default function Products() {
   const nextImage = () => setLightboxIndex((i) => (i + 1) % galleryImages.length);
 
   return (
-    <section id="productos" className="relative py-24 lg:py-32">
+    <section id="productos" className="relative py-16 sm:py-24 lg:py-32">
       {/* BG glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#3366FF]/5 rounded-full blur-[150px]" />
 
-      <div className="relative w-full max-w-[1536px] mx-auto px-6 md:px-12 xl:px-24">
+      <div className="relative w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -114,7 +114,7 @@ export default function Products() {
           <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl mt-4 text-white">
             Nuestros <span className="text-gradient-blue">Productos</span>
           </h2>
-          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             Repuestos industriales de corte y rectificado fabricados con los más altos estándares de calidad.
           </p>
         </motion.div>
@@ -133,7 +133,7 @@ export default function Products() {
               {/* Image */}
               <div className="relative h-44 overflow-hidden">
                 {p.image ? (
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#1B3A5C]/30 to-[#12121A] flex items-center justify-center">
                     <p.icon size={48} className="text-[#3366FF]/30 group-hover:text-[#3366FF]/50 transition-colors duration-500" strokeWidth={1} />
@@ -166,12 +166,12 @@ export default function Products() {
           transition={{ duration: 0.8 }}
           className="mt-24"
         >
-          <div className="text-center mb-10">
+          <div className="text-center mb-8 sm:mb-10">
             <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Galería</span>
             <h3 className="font-heading font-black text-2xl sm:text-3xl mt-3 text-white">
               Nuestro <span className="text-gradient-blue">Trabajo Real</span>
             </h3>
-            <p className="mt-3 text-gray-400 max-w-xl mx-auto">
+            <p className="mt-3 text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
               Fotos reales de nuestros productos fabricados para clientes en Chile y el mundo.
             </p>
           </div>
@@ -191,6 +191,7 @@ export default function Products() {
                   src={img.src}
                   alt={img.label}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
                 <div className="absolute bottom-0 inset-x-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent p-3">
