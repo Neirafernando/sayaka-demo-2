@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* ===== CUSTOM THEME ===== */
+@theme {
+  --color-sayaka-dark: #1B3A5C;
+  --color-sayaka-blue: #3366FF;
+  --color-sayaka-electric: #4455FF;
+  --color-sayaka-steel: #B0B0B0;
+  --color-sayaka-black: #1A1A1A;
+  --color-sayaka-white: #FFFFFF;
+  --color-sayaka-navy: #0D1F33;
+  --color-sayaka-charcoal: #12121A;
+  --color-sayaka-slate: #1E293B;
+
+  --font-heading: "Outfit", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-sayaka-white);
+  background-color: var(--color-sayaka-charcoal);
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sayaka-charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sayaka-dark);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sayaka-blue);
+}
+
+/* ===== METAL TEXTURE KEYFRAMES ===== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes grain-move {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  20% { transform: translate(2%, 2%); }
+  30% { transform: translate(-1%, 1%); }
+  40% { transform: translate(1%, -1%); }
+  50% { transform: translate(-2%, 2%); }
+  60% { transform: translate(2%, -2%); }
+  70% { transform: translate(-1%, -1%); }
+  80% { transform: translate(1%, 1%); }
+  90% { transform: translate(-2%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes spark {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.metal-gradient {
+  background: linear-gradient(
+    135deg,
+    #1B3A5C 0%,
+    #2A4F7A 25%,
+    #3366FF 50%,
+    #2A4F7A 75%,
+    #1B3A5C 100%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+.steel-surface {
+  background: linear-gradient(
+    145deg,
+    rgba(176, 176, 176, 0.08) 0%,
+    rgba(176, 176, 176, 0.02) 50%,
+    rgba(176, 176, 176, 0.08) 100%
+  );
+  border: 1px solid rgba(176, 176, 176, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #B0B0B0 50%, #3366FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #3366FF 0%, #6699FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Metal noise overlay */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 256px;
+  animation: grain-move 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* WhatsApp floating button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+/* Section transitions */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
