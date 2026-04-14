@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"C:\\\\Users\\\\Álvaro Miranda\\\\sayaka demo 1/src/components\"/*.jsx)",
+      "Bash(file \"C:\\\\Users\\\\Álvaro Miranda\\\\sayaka demo 1/src/assets\"/* \"C:\\\\Users\\\\Álvaro Miranda\\\\sayaka demo 1/public\"/*)",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/20250320_201707.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/real-hero.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillas/IMG-20230328-WA0002.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/real-cuchillas.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillo Slitter/20250502_164624.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/real-slitter.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillas cutt Off/Screenshot_20240911_091952_WhatsAppBusiness.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/real-cutoff.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillos Carburo Tungsteno/20240409_164017.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/real-carburo.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillo Slitter/20240719_100514.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-1.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Engranajes/20211104_143501.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-2.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillos Machos/20231207_133420.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-3.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Cuchillos gualeteros/20240105_125122.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-4.jpg')",
+      "Bash(cp 'C:/Users/Álvaro Miranda/sayaka demo 1/data/Separadores y Hembras/20240509_222133.jpg' 'C:/Users/Álvaro Miranda/sayaka demo 1/public/gallery-5.jpg')",
+      "Bash(npm install:*)",
+      "Bash(node -e \"require\\('react-simple-maps'\\); console.log\\('ok'\\)\")"
+    ]
+  }
+}
