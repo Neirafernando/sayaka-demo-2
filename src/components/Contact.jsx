@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Send, Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
 
   const handleSubmit = (e) => {
@@ -14,14 +16,14 @@ export default function Contact() {
   return (
     <section id="contacto" className="relative py-16 sm:py-24 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-[#12121A] via-[#0D1F33]/30 to-[#12121A]" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#3366FF]/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[220px] sm:h-[320px] lg:h-[400px] bg-[#3366FF]/5 rounded-full blur-[150px]" />
 
-      <div className="relative w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
+      <div className="relative w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-10 xl:px-24">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 14 }}
+          whileInView={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          transition={isMobile ? { duration: 0.12 } : { duration: 0.4 }}
           className="text-center mb-10 sm:mb-16"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Hablemos</span>
@@ -37,10 +39,10 @@ export default function Contact() {
           {/* Form */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, x: -14 }}
+            whileInView={isMobile ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.8 }}
+            transition={isMobile ? { duration: 0.12 } : { duration: 0.4 }}
             className="lg:col-span-3 space-y-4 sm:space-y-5 p-5 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
           >
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
@@ -92,10 +94,10 @@ export default function Contact() {
 
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, x: 14 }}
+            whileInView={isMobile ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.8 }}
+            transition={isMobile ? { duration: 0.12 } : { duration: 0.4 }}
             className="lg:col-span-2 space-y-4 sm:space-y-6"
           >
             {[

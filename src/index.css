@@ -18,7 +18,6 @@
 
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -107,7 +106,7 @@ body {
 
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -168,4 +167,16 @@ body {
 .section-fade.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

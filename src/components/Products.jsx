@@ -36,11 +36,11 @@ const galleryImages = [
 function Lightbox({ images, index, onClose, onPrev, onNext }) {
   return (
     <AnimatePresence>
-      <motion.div
+      <div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 md:backdrop-blur-sm"
         onClick={onClose}
       >
         <button
@@ -57,12 +57,12 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           <ChevronLeft size={40} />
         </button>
 
-        <motion.div
+        <div
           key={index}
-          initial={{ opacity: 0, scale: 0.95 }}
+          
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
+          
           className="relative max-w-4xl max-h-[85vh] mx-16"
           onClick={(e) => e.stopPropagation()}
         >
@@ -75,7 +75,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
             <p className="text-white font-semibold text-sm">{images[index].label}</p>
             <p className="text-gray-400 text-xs">{index + 1} / {images.length}</p>
           </div>
-        </motion.div>
+        </div>
 
         <button
           onClick={(e) => { e.stopPropagation(); onNext(); }}
@@ -83,12 +83,14 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         >
           <ChevronRight size={40} />
         </button>
-      </motion.div>
+      </div>
     </AnimatePresence>
   );
 }
 
 export default function Products() {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const openLightbox = (i) => setLightboxIndex(i);
@@ -99,15 +101,15 @@ export default function Products() {
   return (
     <section id="productos" className="relative py-16 sm:py-24 lg:py-32">
       {/* BG glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#3366FF]/5 rounded-full blur-[150px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[220px] sm:h-[320px] lg:h-[400px] bg-[#3366FF]/5 rounded-full blur-[150px]" />
 
-      <div className="relative w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
+      <div className="relative w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-10 xl:px-24">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <div
+          
+          
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          
           className="text-center mb-16"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Catálogo</span>
@@ -117,23 +119,23 @@ export default function Products() {
           <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             Repuestos industriales de corte y rectificado fabricados con los más altos estándares de calidad.
           </p>
-        </motion.div>
+        </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((p, i) => (
-            <motion.div
+            <div
               key={p.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              
+              
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ delay: i * 0.06, duration: 0.6 }}
-              className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.06] hover:border-[#3366FF]/30 transition-all duration-500 hover:shadow-[0_0_40px_rgba(51,102,255,0.1)]"
+              
+              className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.06] md:hover:border-[#3366FF]/30 transition-all duration-300 md:hover:shadow-[0_0_20px_rgba(51,102,255,0.08)]"
             >
               {/* Image */}
               <div className="relative h-44 overflow-hidden">
                 {p.image ? (
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover md:group-hover:scale-110 md:transition-transform md:duration-700" loading="lazy" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#1B3A5C]/30 to-[#12121A] flex items-center justify-center">
                     <p.icon size={48} className="text-[#3366FF]/30 group-hover:text-[#3366FF]/50 transition-colors duration-500" strokeWidth={1} />
@@ -154,16 +156,16 @@ export default function Products() {
               </div>
 
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.02] to-transparent" />
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Photo Gallery */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <div
+          
+          
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8 }}
+          
           className="mt-24"
         >
           <div className="text-center mb-8 sm:mb-10">
@@ -178,29 +180,29 @@ export default function Products() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {galleryImages.map((img, i) => (
-              <motion.button
+              <button
                 key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                
+                
                 viewport={{ once: true, margin: '-30px' }}
-                transition={{ delay: i * 0.05, duration: 0.5 }}
+                
                 onClick={() => openLightbox(i)}
-                className="group relative aspect-square overflow-hidden rounded-xl border border-white/[0.06] hover:border-[#3366FF]/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(51,102,255,0.15)]"
+                className="group relative aspect-square overflow-hidden rounded-xl border border-white/[0.06] md:hover:border-[#3366FF]/40 transition-all duration-200 md:hover:shadow-[0_0_12px_rgba(51,102,255,0.08)]"
               >
                 <img
                   src={img.src}
                   alt={img.label}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover md:group-hover:scale-110 md:transition-transform md:duration-500"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
                 <div className="absolute bottom-0 inset-x-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent p-3">
                   <p className="text-white text-xs font-semibold">{img.label}</p>
                 </div>
-              </motion.button>
+              </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Lightbox */}

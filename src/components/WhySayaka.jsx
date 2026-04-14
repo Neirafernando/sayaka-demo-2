@@ -9,19 +9,21 @@ const reasons = [
 ];
 
 export default function WhySayaka() {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
   return (
     <section id="nosotros" className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#12121A] via-[#0D1F33]/50 to-[#12121A]" />
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#3366FF]/5 rounded-full blur-[150px] -translate-y-1/2" />
+      <div className="absolute top-1/2 right-0 w-[70vw] max-w-[500px] h-[70vw] max-h-[500px] bg-[#3366FF]/5 rounded-full blur-[150px] -translate-y-1/2" />
 
-      <div className="relative w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
+      <div className="relative w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-10 xl:px-24">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: text */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, x: -16 }}
+            whileInView={isMobile ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8 }}
+            transition={isMobile ? { duration: 0.12 } : { duration: 0.4 }}
           >
             <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">¿Por qué elegirnos?</span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl mt-4 text-white leading-tight">
@@ -45,10 +47,10 @@ export default function WhySayaka() {
             {reasons.map((r, i) => (
               <motion.div
                 key={r.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 14 }}
+                whileInView={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
+                transition={isMobile ? { duration: 0.12 } : { delay: i * 0.04, duration: 0.3 }}
                 className="group p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-[#3366FF]/20 transition-all duration-500"
               >
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#3366FF]/10 border border-[#3366FF]/20 flex items-center justify-center mb-4 group-hover:bg-[#3366FF]/20 transition-colors duration-300">

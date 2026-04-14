@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 
 export default function Hero() {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex items-center overflow-hidden bg-[#0a0f18] pt-16 lg:pt-20"
+      className="relative min-h-[100dvh] flex items-center overflow-x-hidden overflow-y-hidden bg-[#0a0f18] pt-16 lg:pt-20"
     >
       {/* Background image */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0 overflow-hidden">
@@ -34,14 +36,14 @@ export default function Hero() {
       <div className="absolute bottom-1/4 right-[10%] w-[50%] h-[60%] bg-[#1B3A5C] rounded-full blur-[110px] opacity-16 z-[2]" />
 
 
-      <div className="relative z-10 w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
+      <div className="relative z-10 w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-10 xl:px-24">
         <div className="grid lg:grid-cols-12 gap-6 items-center py-10 sm:py-14 lg:py-20">
           {/* Content */}
           <div className="lg:col-span-8 flex flex-col justify-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, x: -20 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              transition={isMobile ? { duration: 0.15 } : { delay: 0.1, duration: 0.45 }}
               className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#3366FF]/30 bg-[#3366FF]/10 w-max mb-5 sm:mb-8 backdrop-blur-sm"
             >
               <span className="w-2 h-2 rounded-full bg-[#3366FF] animate-pulse" />
@@ -51,11 +53,11 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{
-                delay: 0.4,
-                duration: 0.8,
+                delay: isMobile ? 0 : 0.15,
+                duration: isMobile ? 0.15 : 0.45,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="font-[Outfit] font-black text-4xl sm:text-5xl md:text-6xl xl:text-[76px] leading-[1.08] mb-5 sm:mb-8"
@@ -67,9 +69,9 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              transition={isMobile ? { duration: 0.15 } : { delay: 0.2, duration: 0.45 }}
               className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mb-8 sm:mb-12 leading-relaxed border-l-2 border-[#3366FF]/50 pl-4 sm:pl-5"
             >
               Fabricamos, importamos y exportamos repuestos para la industria
@@ -80,9 +82,9 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              transition={isMobile ? { duration: 0.15 } : { delay: 0.25, duration: 0.45 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
               <a
@@ -112,9 +114,9 @@ export default function Hero() {
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              transition={isMobile ? { duration: 0.15 } : { delay: 0.3, duration: 0.4 }}
               className="mt-10 sm:mt-14 grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/10 max-w-sm sm:max-w-xl"
             >
               {[
@@ -138,9 +140,9 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={isMobile ? { duration: 0.15 } : { delay: 0.4, duration: 0.4 }}
         className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
       >
         <span className="text-[10px] sm:text-xs text-gray-500 tracking-widest uppercase">
@@ -148,8 +150,8 @@ export default function Hero() {
         </span>
         <div className="w-5 h-8 border border-white/20 rounded-full flex justify-center backdrop-blur-sm">
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            animate={isMobile ? { y: 0 } : { y: [0, 10, 0] }}
+            transition={isMobile ? { duration: 0 } : { duration: 1.5, repeat: Infinity }}
             className="w-1 h-2 bg-[#3366FF] rounded-full mt-1.5"
           />
         </div>

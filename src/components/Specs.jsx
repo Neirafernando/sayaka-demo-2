@@ -21,16 +21,18 @@ const specsData = {
 const tabs = Object.keys(specsData);
 
 export default function Specs() {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
   const [active, setActive] = useState(tabs[0]);
 
   return (
     <section id="specs" className="relative py-16 sm:py-24 lg:py-32">
-      <div className="w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
+      <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-6 md:px-10 xl:px-24">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 14 }}
+          whileInView={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          transition={isMobile ? { duration: 0.12 } : { duration: 0.4 }}
           className="text-center mb-10 sm:mb-12"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-[#3366FF] font-semibold">Datos Técnicos</span>
@@ -62,9 +64,9 @@ export default function Specs() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="overflow-x-auto rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm -mx-1"
+          className="overflow-x-auto rounded-2xl border border-white/[0.06] bg-white/[0.02] md:backdrop-blur-sm -mx-1"
         >
-          <table className="w-full text-left min-w-[500px]">
+          <table className="w-full text-left min-w-[420px] sm:min-w-[500px]">
             <thead>
               <tr className="border-b border-white/[0.06]">
                 {['OD', 'ID', 'THK', 'Tipo', 'Grano', 'Línea / Aplicación'].map((h) => (
