@@ -1,90 +1,5 @@
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
-
-function MetalParticles() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    let animId;
-    const particles = [];
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < 40; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-      });
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(51,102,255,${p.opacity})`;
-        ctx.fill();
-      });
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(51,102,255,${0.05 * (1 - dist / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none z-[5]"
-    />
-  );
-}
 
 export default function Hero() {
   return (
@@ -97,11 +12,11 @@ export default function Hero() {
         <img
           src="/real-hero.jpg"
           alt="Industrial blades"
-          className="w-full h-full object-cover object-[90%_center] opacity-30 lg:opacity-40 mix-blend-screen"
+          className="w-full h-full object-cover object-[90%_center] opacity-35 lg:opacity-45 mix-blend-screen"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f18] via-[#0a0f18]/85 to-[#0a0f18]/40 lg:to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-[#0a0f18]/60 lg:to-[#0a0f18]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f18] via-[#0a0f18]/78 to-[#0a0f18]/28 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-[#0a0f18]/50 lg:to-[#0a0f18]/88" />
       </div>
 
       {/* Grid texture */}
@@ -115,10 +30,9 @@ export default function Hero() {
       />
 
       {/* Glows */}
-      <div className="absolute top-1/4 left-0 w-[40%] h-[50%] bg-[#3366FF] rounded-full blur-[150px] opacity-10 z-[2]" />
-      <div className="absolute bottom-1/4 right-[10%] w-[50%] h-[60%] bg-[#1B3A5C] rounded-full blur-[180px] opacity-20 z-[2]" />
+      <div className="absolute top-1/4 left-0 w-[40%] h-[50%] bg-[#3366FF] rounded-full blur-[90px] opacity-10 z-[2]" />
+      <div className="absolute bottom-1/4 right-[10%] w-[50%] h-[60%] bg-[#1B3A5C] rounded-full blur-[110px] opacity-16 z-[2]" />
 
-      <MetalParticles />
 
       <div className="relative z-10 w-full max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 xl:px-24">
         <div className="grid lg:grid-cols-12 gap-6 items-center py-10 sm:py-14 lg:py-20">
