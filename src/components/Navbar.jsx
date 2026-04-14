@@ -12,6 +12,56 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+    const scrollY = window.scrollY;
+
+    const originalBodyOverflow = body.style.overflow;
+    const originalBodyTouchAction = body.style.touchAction;
+    const originalBodyPosition = body.style.position;
+    const originalBodyTop = body.style.top;
+    const originalBodyWidth = body.style.width;
+    const originalHtmlOverflow = html.style.overflow;
+    const originalHtmlTouchAction = html.style.touchAction;
+
+    if (mobileOpen) {
+      body.style.overflow = 'hidden';
+      body.style.touchAction = 'none';
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.width = '100%';
+
+      html.style.overflow = 'hidden';
+      html.style.touchAction = 'none';
+    } else {
+      body.style.overflow = originalBodyOverflow || '';
+      body.style.touchAction = originalBodyTouchAction || '';
+      body.style.position = originalBodyPosition || '';
+      body.style.top = originalBodyTop || '';
+      body.style.width = originalBodyWidth || '';
+
+      html.style.overflow = originalHtmlOverflow || '';
+      html.style.touchAction = originalHtmlTouchAction || '';
+    }
+
+    return () => {
+      const y = body.style.top;
+      body.style.overflow = originalBodyOverflow || '';
+      body.style.touchAction = originalBodyTouchAction || '';
+      body.style.position = originalBodyPosition || '';
+      body.style.top = originalBodyTop || '';
+      body.style.width = originalBodyWidth || '';
+
+      html.style.overflow = originalHtmlOverflow || '';
+      html.style.touchAction = originalHtmlTouchAction || '';
+
+      if (y) {
+        window.scrollTo(0, Math.abs(parseInt(y || '0', 10)));
+      }
+    };
+  }, [mobileOpen]);
+
   const links = [
     { label: 'Inicio', href: '#hero' },
     { label: 'Productos', href: '#productos' },
@@ -28,7 +78,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[#12121A]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl'
+          ? 'bg-[#12121A]/90 md:backdrop-blur-xl border-b border-white/5 shadow-2xl'
           : 'bg-transparent'
       }`}
     >
@@ -89,12 +139,23 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#12121A]/98 backdrop-blur-xl border-t border-white/5 overflow-hidden"
-          >
+          <>
+            <motion.button
+              type="button"
+              aria-label="Cerrar menú"
+              className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden relative z-50 bg-[#12121A]/98 md:backdrop-blur-xl border-t border-white/5 overflow-hidden"
+            >
             <div className="px-4 py-4 space-y-1">
               {links.map((l) => (
                 <a
@@ -126,6 +187,7 @@ export default function Navbar() {
               </div>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
